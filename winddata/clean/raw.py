@@ -1,19 +1,20 @@
 import os
 import urllib
-
+import numpy as np
 import xarray as xr
 
 from winddata.util.env import data_path
 
 
-def merge_direction_year(year):
+def dir_speed_year(year):
     dfv = load_winddata('v', year)
     dfu = load_winddata('u', year)
     df = dfv.join(dfu, how='outer')
 
-    # Check that there are no missings after merge/join
-    # Add columsn for magnitude and direction
-    # Remove `download_data.py` that's now redundant
+    assert df.notnull().values.any()  # Check that there are no missings after join
+
+    df['dir'] = 180 + np.arctan2(df['uwnd'], df['vwnd']) * 180 / np.pi
+    df['speed'] = np.sqrt(df['vwnd']**2 + df['uwnd']**2)
 
     return df
 
@@ -59,5 +60,5 @@ def download_file(direction, year):
 
 
 if __name__ == '__main__':
-    df = merge_direction_year(2015)
+    df = dir_speed_year(2015)
     print(df.head())
