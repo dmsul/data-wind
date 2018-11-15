@@ -6,7 +6,19 @@ import xarray as xr
 from winddata.util.env import data_path
 
 
+@load_or_build(data_path('{direction}wnd.sig995.{year}.nc'))
 def dir_speed_year(year):
+    '''
+    Direction of 'uwnd' and 'vwnd':
+        positive value: west and south winds
+        negative value: east and north winds
+
+    Wind direction: 0/360-degree is North, 90-degree is East, 180-degree is South, 270-degree is West
+
+    Unit of 'speed'/'vwnd'/'uwnd': m/s (meters per second)
+
+    '''
+
     dfv = load_winddata('v', year)
     dfu = load_winddata('u', year)
     df = dfv.join(dfu, how='outer')
