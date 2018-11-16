@@ -26,7 +26,8 @@ def dir_speed_year(year):
     assert df.notnull().values.any()    # Check that there are
                                         # no missings after join
 
-    df['dir'] = 180 + np.arctan2(df['uwnd'], df['vwnd']) * 180 / np.pi
+    df['dir'] = np.arctan2(df['uwnd'], df['vwnd']) * 180 / np.pi
+    df.loc[df['dir'] < 0, 'dir'] += 360
     df['speed'] = np.sqrt(df['vwnd'] ** 2 + df['uwnd'] ** 2)
 
     return df
@@ -73,5 +74,4 @@ def raw_netcdf(direction, year, _load=True, _rebuild=False):
 
 
 if __name__ == '__main__':
-    df = dir_speed_year(2015)
-    # nc = raw_netcdf('u', 2015)
+    df = dir_speed_year(2015, _load=False)
