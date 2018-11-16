@@ -10,9 +10,11 @@ from winddata.util.env import data_path, src_path
 @load_or_build(data_path('wnd_sig995_{year}.pkl'))
 def dir_speed_year(year):
     '''
-    Direction of 'uwnd' and 'vwnd':
-        positive value: west and south winds
-        negative value: east and north winds
+    'uwnd' is x-axis (West/East)
+    'vwnd' is y-axis (South/North)
+        positive value: from west and south
+        negative value: from east and north
+    (i.e., standard cartesian grid where positive y-axis points to north).
 
     Wind direction: 0/360-degree is North, 90-degree is East, 180-degree is
     South, 270-degree is West
