@@ -76,4 +76,4 @@ def raw_netcdf(direction, year, _load=True, _rebuild=False):
 
 
 if __name__ == '__main__':
-    df = dir_speed_year(2015, _load=False)
+    df = dir_speed_year(2015)
