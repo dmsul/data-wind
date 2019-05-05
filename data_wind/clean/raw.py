@@ -4,7 +4,7 @@ import numpy as np
 import xarray as xr
 from econtools import load_or_build
 
-from winddata.util.env import data_path, src_path
+from data_wind.util.env import data_path, src_path
 
 
 @load_or_build(data_path('wnd_sig995_{year}.pkl'))
